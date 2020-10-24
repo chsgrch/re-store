@@ -1,17 +1,18 @@
-import React from 'react'
-import withBookstoreService from '../hoc/with-bookstore-service'
+import React from "react";
+import withBookstoreService from "../hoc/with-bookstore-service";
+import ErrorBoundry from "../error-boundry";
 const Home = () => {
   return (
-    <div>
+    <ErrorBoundry>
       <h1>HOME PAGE</h1>
-    </div>
-  )
-}
+    </ErrorBoundry>
+  );
+};
 
 const mapMethodsToProps = (bookstoreService) => {
   return {
-    getBooks: bookstoreService.getBooks
-  }
-}
+    getBooks: bookstoreService.getBooks,
+  };
+};
 
-export default withBookstoreService(mapMethodsToProps)(Home);
+export default withBookstoreService()(Home);

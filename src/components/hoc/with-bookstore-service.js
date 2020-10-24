@@ -1,18 +1,16 @@
-import React from 'react'
-import { BookstoreServiceConsumer } from '../bookstore-service-context'
+import React from "react";
+import { BookstoreServiceConsumer } from "../bookstore-service-context";
 
-
-const withBookstoreService = (mapMethodsToProps) => (View) => {
+const withBookstoreService = () => (View) => {
   return (props) => {
     return (
       <BookstoreServiceConsumer>
         {(bookstoreService) => {
-          const serviceProps = mapMethodsToProps(bookstoreService)
-          return (<View {...props} {...serviceProps} />)
+          return <View {...props} bookstoreService={bookstoreService} />;
         }}
       </BookstoreServiceConsumer>
-    )
-  }
-}
+    );
+  };
+};
 
 export default withBookstoreService;

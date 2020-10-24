@@ -1,29 +1,15 @@
-import React, { Component } from 'react'
-import ErrorIndicator from '../error-indicator'
-import Spiner from '../spiner'
-import { BookstoreServiceProvider } from '../bookstore-service-context'
-import BookstoreService from '../../services/bookstore-service'
-import MainPage from '../pages/main-page'
+import React from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
 
-export default class App extends Component {
+import { CartPage, HomePage } from "../pages";
 
-  state = {
-    bookstoreService: new BookstoreService(),
-    hasError: false
-  }
+const App = () => {
+  return (
+    <Switch>
+      <Route path="/" exact component={HomePage} />
+      <Route path="/card" exact component={CartPage} />
+    </Switch>
+  );
+};
 
-  componentDidCatch() {
-    this.setState({ hasError: true })
-  }
-
-  render() {
-    const { hasError } = this.state
-    if (hasError) return <ErrorIndicator />
-    return (
-      <BookstoreServiceProvider value={this.state.bookstoreService}>
-        <Spiner />
-        <MainPage />
-      </BookstoreServiceProvider>
-    )
-  }
-}
+export default App;
