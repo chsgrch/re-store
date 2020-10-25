@@ -9,7 +9,21 @@ import Spiner from "../spiner";
 import ErrorIndicator from "../error-indicator";
 import "./book-list.css";
 
-class BookList extends Component {
+const BookList = ({ books }) => {
+  return (
+    <ul className="book-list">
+      {books.map((el) => {
+        return (
+          <li key={el.id}>
+            <BookListItem book={el} />
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
+
+class BookListContainer extends Component {
   componentDidMount() {
     this.props.fetchBooks();
   }
@@ -18,17 +32,7 @@ class BookList extends Component {
     const { books, loading, error } = this.props;
     if (loading) return <Spiner />;
     if (error) return <ErrorIndicator details={error.toString()} />;
-    return (
-      <ul className="book-list">
-        {books.map((el) => {
-          return (
-            <li key={el.id}>
-              <BookListItem book={el} />
-            </li>
-          );
-        })}
-      </ul>
-    );
+    return <BookList books={books} />;
   }
 }
 
@@ -46,4 +50,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default compose(
   withBookstoreService(),
   connect(mapStateToProps, mapDispatchToProps)
-)(BookList);
+)(BookListContainer);
